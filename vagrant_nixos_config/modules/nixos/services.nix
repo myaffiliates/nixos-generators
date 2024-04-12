@@ -332,7 +332,7 @@ in
     RuntimeDirectory = "nginx";
     LogsDirectory = "nginx";
     CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
-    ConditionPathExists = "/myaffiliates/_bootstrap/nginx/clients-test.conf"; 
+    ConditionPathExists = "/myaffiliates/_bootstrap/nginx"; 
   };
 
   services.nginx = {
@@ -419,8 +419,10 @@ in
 
       access_log /var/log/nginx/localhost.access_log main;
       error_log /var/log/nginx/localhost.error_log info;
+
+      include /myaffiliates/_bootstrap/nginx/clients-*.conf;
     '';
-    httpConfig =  builtins.readFile "/myaffiliates/_bootstrap/nginx/clients-test.conf";
+    #httpConfig =  builtins.readFile "/myaffiliates/_bootstrap/nginx/clients-test.conf";
     };
 
   services.phpfpm.pools = {
