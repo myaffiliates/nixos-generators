@@ -58,7 +58,7 @@
       modules = [
         ./configuration.nix
       ];
-      format = "virtualbox";
+      format = "vagrant-virtualbox ";
     };
   };
 }

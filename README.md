@@ -6,8 +6,11 @@ Add the following to /etc/nix/nix.conf
 experimental-features = nix-command flakes
 trusted-users = root <user account>
 
-echo "experimental-features = nix-command flakes | sudo tee -a /etc/nix/nix.conf 
+echo "experimental-features = nix-command flakes" | sudo tee -a /etc/nix/nix.conf 
 echo "trusted-users = root eddie" | sudo tee -a /etc/nix/nix.conf && sudo pkill nix-daemon
+
+
+nix-env -iA cachix -f https://cachix.org/api/v1/install
 
 Install channel
 
