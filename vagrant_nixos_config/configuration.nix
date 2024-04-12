@@ -217,7 +217,7 @@
     members = [ "vagrant" ];
   };
   users.users.vagrant = {
-    description     = "Vagrant User";
+    description     = "Vagrant user account";
     name            = "vagrant";
     group           = "vagrant";
     isNormalUser = true;
