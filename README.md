@@ -1,3 +1,61 @@
+Install Multiuser Nix
+curl -L https://nixos.org/nix/install | sh -s -- --daemon
+
+
+Add the following to /etc/nix/nix.conf
+experimental-features = nix-command flakes
+trusted-users = root <user account>
+
+echo "experimental-features = nix-command flakes | sudo tee -a /etc/nix/nix.conf 
+echo "trusted-users = root eddie" | sudo tee -a /etc/nix/nix.conf && sudo pkill nix-daemon
+
+Install channel
+
+sudo su
+ nix profile install --file '<nixpkgs>' -I nixpkgs=channel:nixos-23.11 nixos
+ systemctl daemon-reload
+ systemctl restart nix-daemon
+
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+
+
+remove
+sudo systemctl stop nix-daemon.service
+sudo systemctl disable nix-daemon.socket nix-daemon.service
+sudo rm -rf /etc/nix /etc/profile.d/nix.sh /etc/tmpfiles.d/nix-daemon.conf /nix ~root/.nix-channels ~root/.nix-defexpr ~root/.nix-profile
+for i in $(seq 1 32); do   sudo userdel nixbld$i; done
+
+sudo mv /etc/bashrc.backup-before-nix /etc/bashrc
+sudo  mv /etc/zshrc.backup-before-nix /etc/zshrc
+
+
+sudo nix-env --install --file '<nixpkgs>' --attr nix cacert -I nixpkgs=channel:nixos-23.11
+nix-channel -I --add https://nixos.org/channels/nixos-23.11 
+
+sudo -i nix-channel --add https://nixos.org/channels/nixos-23.11 nixpkgs
+sudo -i nix-channel --update nixpkgs
+nix-shell -p nix -I nixpkgs=channel:nixos-23.11 --run "nix --version"
+nix (Nix) 2.18.1
+
+Install from github
+nix profile install github:myaffiliates/nixos-generators
+
+nixos-generate -c <your_config.nix> -f vagrant-virtualbox --disk-size 20480
+Install an app called 'direnv' 
+Add to .bashrc
+eval "$(direnv hook bash)
+
+
+
+
+nix build .#vagrant | cachix push zban-nixcache
+
+
+
+
+ORIGINAL README
+
+
 # nixos-generators - one config, multiple formats
 
 The nixos-generators project allows to take the same NixOS configuration, and
