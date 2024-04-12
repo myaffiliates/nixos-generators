@@ -28,7 +28,7 @@
     # ./users.nix
 
     # Import your generated (nixos-generate-config) hardware configuration
-    ./hardware-configuration.nix
+    #./hardware-configuration.nix
   ];
   
   nixpkgs = {
@@ -91,10 +91,12 @@
 
     # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
-  boot.loader.grub.devices = [ "/dev/sda" ];
+  #boot.loader.grub.devices = [ "/dev/sda" ];
+  boot.loader.grub.useOSProber = true;
+
 
   fileSystems."/var/lib/mysql" =
-  { device = " /dev/disk/by-label/mysql";
+  { device = "/dev/disk/by-label/mysql";
     fsType = "ext4";
   };
 
